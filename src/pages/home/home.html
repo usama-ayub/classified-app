@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding style="background-color: #e0e0e0;">
+  <div>
+    <ion-card style="background: #eee">
+      <ion-card-header>
+        <ion-item>
+          <ion-label floating>What's Your Post</ion-label>
+          <ion-input type="text" [(ngModel)]="postContent.posts"></ion-input>
+        </ion-item>
+      </ion-card-header>
+      <ion-card-content>
+        <div style="float:right">
+          <button ion-button round (click)="addPost(postContent)">Add Post</button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+  <div style="margin-top: 25px;">
+    <ion-card *ngFor="let item of post">
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="assets/download.jpg">
+        </ion-avatar>
+        <h2>Marty McFly</h2>
+        <p>November 5, 1955</p>
+      </ion-item>
+      <ion-card-content>
+        <p>{{item.posts}}</p>
+      </ion-card-content>
+
+      <ion-row style="border-top: #0088ff 2px solid">
+        <ion-col>
+          <button ion-button icon-left clear small (click)="isLike(item)" *ngIf="item.isLike==true">
+        <ion-icon name="thumbs-up" md="md-thumbs-up"></ion-icon>
+        <div>Like</div>
+      </button>
+          <button ion-button icon-left clear small (click)="isLike(item)" *ngIf="item.isLike==false" style="color: black">
+        <ion-icon name="thumbs-up" md="md-thumbs-up" ></ion-icon>
+        <div>Like</div>
+      </button>
+        </ion-col>
+        <ion-col center text-center>
+          <ion-note style="color: black;position: absolute;top: 17px;right: 25px;">
+            {{ item.createTime | date:"MM/dd/yy"}}
+          </ion-note>
+        </ion-col>
+      </ion-row>
+
+    </ion-card>
+  </div>
+
+
+  <!--<div>
+    <ion-card *ngFor="let item of todoItem">
+
+      <ion-card-header>
+        <span style="float: left"><ion-icon name="close" (click)="deleteTodo(item)" ></ion-icon></span>
+        <span style="float: right"> <ion-icon name="bookmark" (click)="isActive(item)" *ngIf="item.isfavourite==true"></ion-icon></span>
+        <span style="float: right"> <ion-icon name="ios-bookmark-outline" (click)="isActive(item)"  *ngIf="item.isfavourite==false"></ion-icon></span>
+      </ion-card-header>
+
+      <ion-card-content>
+        {{item.todoTask}}
+      </ion-card-content>
+
+    </ion-card>
+  </div>-->
+
+
+
+</ion-content>

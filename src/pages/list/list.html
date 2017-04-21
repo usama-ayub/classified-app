@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div style="margin: 7% 0; width: 100%; height: auto">
+    <div style="width: 100%;">
+      <button ion-button secondary (click)="pormodos()">Pormodo</button>
+      <button ion-button secondary (click)="short()">Short Break</button>
+      <button ion-button secondary (click)="long()">Long Break</button>
+    </div>
+    <div style="width: 100%; padding:0 18%">
+      <!--<button (click)="doLogout()">Logout</button>-->
+      <button ion-button secondary (click)="start()">Start</button>
+      <button ion-button secondary (click)="stop()">stop</button>
+      <button ion-button secondary (click)="reset()">reset</button>
+      <ion-card>
+
+        <ion-card-header>
+          Timer
+        </ion-card-header>
+
+        <ion-card-content>
+          {{minutes}} : {{seconds}}
+        </ion-card-content>
+
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

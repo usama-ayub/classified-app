@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>login</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+      <form #form="ngForm" (ngSubmit)="doLogin(form)" novalidate>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" required  [(ngModel)]="user.email"  name="email" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" required  [(ngModel)]="user.password" name="password" required></ion-input>
+      </ion-item>
+      <br/>
+      <div>
+      <button ion-button secondary type="submit" block>Login</button>
+      </div>
+      <div>
+        <button ion-button clear block [navPush]="register">Register</button>
+      </div>
+    </form>
+
+</ion-content>
