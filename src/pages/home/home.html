@@ -24,13 +24,14 @@
     </ion-card>
 
   </div>
-
+  {{check}}
   <div style="margin-top: 25px;">
     <ion-card *ngFor="let item of post">
       <ion-item>
         <ion-avatar item-left>
           <img src="assets/download.jpg">
         </ion-avatar>
+        <ion-icon name="more" md="md-more" (click)="presentPopover($event)" style="float: right"></ion-icon>
         <h2>Marty McFly</h2>
         <p>November 5, 1955</p>
       </ion-item>

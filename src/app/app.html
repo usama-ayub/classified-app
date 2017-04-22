@@ -7,8 +7,14 @@
 
   <ion-content>
     <ion-list class="scroll-content">
-      <button menuClose ion-item (click)="openPage(pages[1].title)">
+      <button menuClose ion-item (click)="openPage(pages[1])">
           <ion-icon name="home" md="md-home"></ion-icon>{{pages[1].title}}
+      </button>
+      <button menuClose ion-item (click)="openPage(pages[0])">
+          <ion-icon name="home" md="md-home"></ion-icon>{{pages[0].title}}
+      </button>
+        <button menuClose ion-item (click)="openPage(pages[3])">
+          <ion-icon name="home" md="md-home"></ion-icon>{{pages[3].title}}
       </button>
       <button menuClose ion-item>
         <ion-icon name="power" md="md-power"></ion-icon>Logout

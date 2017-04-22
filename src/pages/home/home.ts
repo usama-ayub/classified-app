@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, PopoverController } from 'ionic-angular';
 import { Observable } from "rxjs/Observable"
 import { App } from '../../providers/app';
 import { Auth } from '../../providers/auth';
@@ -18,7 +18,9 @@ export class HomePage implements OnInit {
   addPostObj: any;
   isLikeObj: any;
   todoDeleteObj: any;
-  constructor(public navCtrl: NavController, private auth: Auth, private todo: Todo, private app: App) {
+  exist: boolean = true;
+  check: any;
+  constructor(public navCtrl: NavController, private auth: Auth, private todo: Todo, public popoverCtrl: PopoverController, private app: App) {
 
   }
   ngOnInit() {
@@ -37,6 +39,12 @@ export class HomePage implements OnInit {
       user_id: '',
       todo_id: ''
     }
+  }
+
+
+  presentPopover() {
+    let popover = this.popoverCtrl.create('<h1>sda</h1>');
+    popover.present();
   }
 
   getPost() {
@@ -69,10 +77,10 @@ export class HomePage implements OnInit {
     this.todo.addPost(this.addPostObj)
       .then(data => {
         let response = data.json();
-        if(!response.success){
+        if (!response.success) {
 
         }
-        else{
+        else {
           this.getPost()
         }
       })
@@ -112,5 +120,15 @@ export class HomePage implements OnInit {
           this.app.showToast()
         }
       })
+  }
+  ionViewDidLoad() {
+    if (this.auth.uid) {
+      this.check = !this.exist
+      return this.check
+    }
+    else {
+      this.check = this.exist
+      return this.check
+    }
   }
 }
