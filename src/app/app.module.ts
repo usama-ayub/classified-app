@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { Login } from '../pages/login/login';
 import { Register } from '../pages/register/register';
+import { AddPost } from '../pages/add-post/add-post';
 
 
 import { App } from '../providers/app';
@@ -23,7 +24,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     ListPage,
     Login,
-    Register
+    Register,
+    AddPost
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     ListPage,
     Register,
-    Login
+    Login,
+    AddPost
   ],
   providers: [
     StatusBar,
@@ -44,7 +47,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Auth,
     Todo,
     App,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }

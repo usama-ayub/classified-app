@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable"
 import { App } from '../../providers/app';
 import { Auth } from '../../providers/auth';
 import { Todo } from '../../providers/todo';
+import { AddPost } from '../add-post/add-post';
 
 @Component({
   selector: 'page-home',
@@ -11,41 +12,40 @@ import { Todo } from '../../providers/todo';
 })
 export class HomePage implements OnInit {
   post = [];
-  postContent = {
-    posts: '',
-    isLike: false
-  };
+
   addPostObj: any;
   isLikeObj: any;
   todoDeleteObj: any;
   exist: boolean = true;
-  check: any;
+  addPost: any;
+  
   constructor(public navCtrl: NavController, private auth: Auth, private todo: Todo, public popoverCtrl: PopoverController, private app: App) {
-
+    this.addPost = AddPost
   }
   ngOnInit() {
-    this.getPost()
-
+    this.getPost();
     this.addPostObj = {
       posts: '',
       createBy: '',
       isLike: false
-    }
+    };
     this.isLikeObj = {
       post_id: '',
       isLike: false
-    }
+    };
     this.todoDeleteObj = {
       user_id: '',
       todo_id: ''
+    };
+
+    if (this.auth.user == null) {
+      return this.exist = !this.exist;
+    } else {
+      return this.exist = this.exist;
     }
+
   }
 
-
-  presentPopover() {
-    let popover = this.popoverCtrl.create('<h1>sda</h1>');
-    popover.present();
-  }
 
   getPost() {
     this.app.LoaderShow();
@@ -58,35 +58,18 @@ export class HomePage implements OnInit {
         else {
           if (response.data.length > 0) {
             this.post = response.data;
+            console.log(this.post)
             this.app.LoaderHide();
           } else {
+
+
+            console.log(this.post.length)
             this.app.LoaderHide();
           }
 
         }
       })
   }
-
-  addPost(postContent) {
-    this.post.push(Object.assign({}, postContent))
-    this.addPostObj = {
-      posts: postContent.posts,
-      createBy: this.auth.uid,
-      isLike: postContent.isLike
-    }
-    this.todo.addPost(this.addPostObj)
-      .then(data => {
-        let response = data.json();
-        if (!response.success) {
-
-        }
-        else {
-          this.getPost()
-        }
-      })
-    postContent.posts = ''
-  }
-
 
   isLike(index) {
     this.app.LoaderShow();
@@ -120,15 +103,5 @@ export class HomePage implements OnInit {
           this.app.showToast()
         }
       })
-  }
-  ionViewDidLoad() {
-    if (this.auth.uid) {
-      this.check = !this.exist
-      return this.check
-    }
-    else {
-      this.check = this.exist
-      return this.check
-    }
   }
 }

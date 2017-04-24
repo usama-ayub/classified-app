@@ -11,16 +11,12 @@ import { AppConfig } from "../app.config";
 export class Todo {
 
   constructor(public http: Http, private auth: Auth) {
-    console.log('Hello Todo Provider');
+    
   }
 
-  addPost({ createBy, posts, isLike }): Promise<any> {
+  addPost(data:any) {
     let url = `${AppConfig.API_URL}/post/add`;
-    return this.http.post(url, {
-      createBy: createBy,
-      posts: posts,
-      isLike: isLike
-    }).toPromise();
+    return this.http.post(url, data);
   }
 
   getPost(): Observable<any> {
