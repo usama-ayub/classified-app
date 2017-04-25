@@ -25,17 +25,26 @@
         <ion-input type="text" required [(ngModel)]="addPostObj.description" name="description" required></ion-input>
       </ion-item>
 
-        <ion-item>
+      <ion-item>
         <ion-label floating>Category</ion-label>
         <ion-input type="text" required [(ngModel)]="addPostObj.category" name="category" required></ion-input>
       </ion-item>
       <br/>
       <div>
-        <button ion-button secondary (click)="postImage()" block>Post Image</button>
+        <ion-content padding>
+          <img src="{{pathForImage(lastImage)}}" style="width: 50%;height: 50%;float: right;" [hidden]="lastImage === null">
+          <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
+        </ion-content>
+        <ion-buttons>
+          <button ion-button icon-left block (click)="captureImage()" >
+        <ion-icon name="camera"></ion-icon>Select Image
+      </button>
+        </ion-buttons>
       </div>
       <div>
         <button ion-button secondary type="submit" block>Add Post</button>
       </div>
     </form>
   </div>
+
 </ion-content>

@@ -17,7 +17,7 @@ import { AddPost } from '../pages/add-post/add-post';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = AddPost;
 
   pages: Array<{ title: string, component: any }>;
 

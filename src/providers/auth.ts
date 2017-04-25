@@ -32,7 +32,7 @@ export class Auth {
 
 
   get uid() {
-    return this.getUserData()._id;
+    return '58d3ea45279c3a27940f20c2';
   }
 
   get user() {

@@ -18,7 +18,7 @@ export class HomePage implements OnInit {
   todoDeleteObj: any;
   exist: boolean = true;
   addPost: any;
-  
+
   constructor(public navCtrl: NavController, private auth: Auth, private todo: Todo, public popoverCtrl: PopoverController, private app: App) {
     this.addPost = AddPost
   }
@@ -58,15 +58,11 @@ export class HomePage implements OnInit {
         else {
           if (response.data.length > 0) {
             this.post = response.data;
-            console.log(this.post)
             this.app.LoaderHide();
           } else {
-
-
             console.log(this.post.length)
             this.app.LoaderHide();
           }
-
         }
       })
   }
