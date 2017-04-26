@@ -4,6 +4,7 @@ import { Camera, File, FilePath, Transfer } from 'ionic-native';
 import { Todo } from '../../providers/todo';
 import { Auth } from '../../providers/auth';
 import { HomePage } from '../home/home';
+
 declare var cordova: any;
 @Component({
   selector: 'page-add-post',
@@ -16,10 +17,12 @@ export class AddPost implements OnInit {
 
 
   constructor(public navParams: NavParams, private auth: Auth, private todo: Todo, public navCtrl: NavController, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController) {
+  
   }
+
   ngOnInit() {
     this.addPostObj = {
-      name: '',
+      title: '',
       description: '',
       img: '',
       category: '',
@@ -27,7 +30,6 @@ export class AddPost implements OnInit {
       createBy: this.auth.uid,
     };
   }
-
 
   captureImage() {
     let actionSheet = this.actionSheetCtrl.create({
@@ -56,6 +58,7 @@ export class AddPost implements OnInit {
     });
     actionSheet.present();
   }
+
   public takePicture(sourceType) {
     // Create options for the Camera Dialog
     var options = {
@@ -78,6 +81,7 @@ export class AddPost implements OnInit {
             });
         }
         else {
+          console.log('else')
           var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
           var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
           this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
@@ -87,24 +91,22 @@ export class AddPost implements OnInit {
       });
   }
 
-  // Create a new name for the image
-  private createFileName() {
+  createFileName() {
     var d = new Date(),
       n = d.getTime(),
       newFileName = n + ".jpg";
     return newFileName;
   }
 
-  // Copy the image to a local folder
-  private copyFileToLocalDir(namePath, currentName, newFileName) {
+  copyFileToLocalDir(namePath, currentName, newFileName) {
     File.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
-      this.pathForImage(this.lastImage);
     }, error => {
       this.presentToast('Error while storing file.');
     });
   }
-  private presentToast(text) {
+
+  presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
@@ -112,73 +114,52 @@ export class AddPost implements OnInit {
     });
     toast.present();
   }
+
   public pathForImage(img) {
     if (img === null) {
       return '';
     } else {
-      if (img !== undefined) {
-        let ImageUrl = cordova.file.dataDirectory + img;
-        // this.uploadUrl(ImageUrl);
-        console.log(ImageUrl)
-        this.addPostObj.img = ImageUrl
-        return cordova.file.dataDirectory + img;
-      }
+      return cordova.file.dataDirectory + img;
     }
   }
-  addPost(post) {
+  uploadImage(post) {
     if (!post.valid) {
-      console.log('false')
+      return this.presentToast('Please Field Form Field');
     }
     else {
-      this.todo.addPost(this.addPostObj)
-        .subscribe(data => {
-          let response = data.json();
-          if (!response.success) {
-            console.log(response.error)
-          }
-          else {
-            this.navCtrl.setRoot(HomePage)
-          }
-        })
-    }
+      var url = "https://classified-app-server.herokuapp.com/api/post/add";
+      var targetPath = this.pathForImage(this.lastImage);
+      var img = this.lastImage;
+      var options = {
+        fileKey: "img",
+        img: img,
+        chunkedMode: false,
+        httpMethod: 'POST',
+        mimeType: "multipart/form-data",
+        params: {
+          'img': img,
+          'title': this.addPostObj.title,
+          'description': this.addPostObj.description,
+          'category': this.addPostObj.category,
+          'isLike': false,
+          'createBy': this.auth.uid
+        }
+      };
 
-  }
-
-
-
-
-
-
-
-
-
-
-
-  /* getFileEntry(filePath, cb) {
-     window['resolveLocalFileSystemURL'](filePath,
-       function (fileEntry) {
-         var win = function (file) {
-           var reader = new FileReader();
-           reader.onloadend = function (evt) {
-             let Obj = evt.target['result'];
-             cb(Obj, null);
-           };
-           reader.readAsArrayBuffer(file);
-         };
-         var fail = function (evt) {
-           cb(null, evt);
-         };
-         fileEntry.file(win, fail);
-       }, function (error) {
-         cb(null, error);
-       });
-   }*/
-  /*  firebaseUpload(url) {
-      this.getFileEntry(url, (data, err) => {
-        console.log(data);
-        console.log(err);
+      const fileTransfer = new Transfer();
+      this.loading = this.loadingCtrl.create({
+        content: 'Uploading...',
       });
-    }*/
-
-
+      this.loading.present();
+      fileTransfer.upload(targetPath, url, options).then(data => {
+        console.log('data', data)
+        this.loading.dismissAll()
+        this.presentToast('Image succesful uploaded.');
+      }, err => {
+        console.log('err', err)
+        this.loading.dismissAll()
+        this.presentToast('Error while uploading file.');
+      });
+    }
+  }
 }

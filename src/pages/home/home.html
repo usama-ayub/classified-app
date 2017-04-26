@@ -19,12 +19,12 @@
         <h2>Marty McFly</h2>
         <p>November 5, 1955</p>
       </ion-item>
-      <img src="assets/advance-card-bttf.png">
+      <img [src]="appConfig + item.imgName">
 
       <ion-card-content>
-        <p><span>Name</span>:{{item.name}}</p>
-        <p>{{item.description}}</p>
-        <p>{{item.category}}</p>
+        <p><span>Title</span>:{{item.title}}</p>
+        <p><span>Description</span>:{{item.description}}</p>
+        <p><span>Category</span>:{{item.category}}</p>
       </ion-card-content>
 
 
@@ -51,7 +51,7 @@
 
     </ion-card>
   </div>
-  <div style="position: fixed;right: 20px;bottom: 10px;" [navPush]="addPost">
+  <div style="position: fixed;right: 20px;bottom: 10px;" *ngIf="exist ? '[navPush]="addPost"' : '[navPush]="login"'">
     <button ion-button icon-only>
            <ion-icon name="add-circle" md="md-add-circle"></ion-icon>
       </button>

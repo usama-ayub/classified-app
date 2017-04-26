@@ -5,6 +5,7 @@ import { App } from '../../providers/app';
 import { Auth } from '../../providers/auth';
 import { Todo } from '../../providers/todo';
 import { AddPost } from '../add-post/add-post';
+import { Login } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -18,9 +19,13 @@ export class HomePage implements OnInit {
   todoDeleteObj: any;
   exist: boolean = true;
   addPost: any;
+  login: any;
+  appConfig: any;
 
   constructor(public navCtrl: NavController, private auth: Auth, private todo: Todo, public popoverCtrl: PopoverController, private app: App) {
     this.addPost = AddPost
+    this.login = Login
+  this.appConfig = 'https://classified-app-server.herokuapp.com/'
   }
   ngOnInit() {
     this.getPost();
@@ -45,6 +50,8 @@ export class HomePage implements OnInit {
     }
 
   }
+
+
 
 
   getPost() {
