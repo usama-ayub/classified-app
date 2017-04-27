@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, ToastController } from 'ionic-angular';
 import { Http } from '@angular/http';
+import { Auth } from '../providers/auth';
 import 'rxjs/add/operator/map';
 
 /*
@@ -15,9 +16,17 @@ import 'rxjs/add/operator/map';
 export class App {
   private loading: any;
   toast: any;
-  constructor(public http: Http, private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+
+  constructor(public http: Http, private loadingCtrl: LoadingController, private toastCtrl: ToastController, private auth: Auth) {
 
     console.log('Hello App Provider');
+  }
+  userCheck() {
+    if (this.auth.user == null) {
+      return false
+    } else {
+      return true;
+    }
   }
   LoaderShow() {
     this.loading = this.loadingCtrl.create({
@@ -30,9 +39,9 @@ export class App {
     if (this.loading) this.loading.dismissAll()
   }
 
-  showToast() {
+  showToast(text) {
     this.toast = this.toastCtrl.create({
-      message:"Remove Successfully",
+      message: text,
       duration: 1000,
       position: 'bottom'
     });

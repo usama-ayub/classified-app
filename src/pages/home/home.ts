@@ -17,15 +17,14 @@ export class HomePage implements OnInit {
   addPostObj: any;
   isLikeObj: any;
   todoDeleteObj: any;
-  exist: boolean = true;
+  exist: any;
   addPost: any;
   login: any;
   appConfig: any;
-
   constructor(public navCtrl: NavController, private auth: Auth, private todo: Todo, public popoverCtrl: PopoverController, private app: App) {
     this.addPost = AddPost
     this.login = Login
-  this.appConfig = 'https://classified-app-server.herokuapp.com/'
+    this.appConfig = 'https://classified-app-server.herokuapp.com/'
   }
   ngOnInit() {
     this.getPost();
@@ -42,17 +41,17 @@ export class HomePage implements OnInit {
       user_id: '',
       todo_id: ''
     };
-
-    if (this.auth.user == null) {
-      return this.exist = !this.exist;
-    } else {
-      return this.exist = this.exist;
-    }
-
+    this.exist = this.auth.user;
   }
 
 
-
+  addpostFunc() {
+    this.navCtrl.push(AddPost)
+    .catch((err) => {
+      this.navCtrl.setRoot(Login)
+     //if(err) return this.navCtrl.setRoot(Login)
+    })
+  }
 
   getPost() {
     this.app.LoaderShow();
@@ -103,7 +102,7 @@ export class HomePage implements OnInit {
     this.todo.deleteTodo(this.todoDeleteObj)
       .then(data => {
         if (data.status == 200) {
-          this.app.showToast()
+          //this.app.showToast()
         }
       })
   }

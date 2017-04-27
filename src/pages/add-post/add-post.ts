@@ -1,9 +1,12 @@
+
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, LoadingController } from 'ionic-angular';
 import { Camera, File, FilePath, Transfer } from 'ionic-native';
 import { Todo } from '../../providers/todo';
+import { App } from '../../providers/app';
 import { Auth } from '../../providers/auth';
 import { HomePage } from '../home/home';
+import { Login } from '../login/login';
 
 declare var cordova: any;
 @Component({
@@ -16,8 +19,8 @@ export class AddPost implements OnInit {
   addPostObj: any;
 
 
-  constructor(public navParams: NavParams, private auth: Auth, private todo: Todo, public navCtrl: NavController, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController) {
-  
+  constructor(public navParams: NavParams, private auth: Auth, private todo: Todo, public navCtrl: NavController, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController, public app: App) {
+
   }
 
   ngOnInit() {
@@ -30,7 +33,15 @@ export class AddPost implements OnInit {
       createBy: this.auth.uid,
     };
   }
-
+  ionViewCanEnter(): boolean {
+    if (this.app.userCheck()) {
+      console.log('if')
+      return true;
+    } else {
+      console.log('else')
+      return false;
+    }
+  }
   captureImage() {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
@@ -87,7 +98,7 @@ export class AddPost implements OnInit {
           this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
         }
       }, (err) => {
-        this.presentToast('Error while capturing image');
+        this.app.showToast('Error while capturing image');
       });
   }
 
@@ -102,17 +113,8 @@ export class AddPost implements OnInit {
     File.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
     }, error => {
-      this.presentToast('Error while storing file.');
+      this.app.showToast('Error while storing file.');
     });
-  }
-
-  presentToast(text) {
-    let toast = this.toastCtrl.create({
-      message: text,
-      duration: 3000,
-      position: 'top'
-    });
-    toast.present();
   }
 
   public pathForImage(img) {
@@ -124,20 +126,20 @@ export class AddPost implements OnInit {
   }
   uploadImage(post) {
     if (!post.valid) {
-      return this.presentToast('Please Field Form Field');
+      return this.app.showToast('Incomplete Input Field');
     }
     else {
       var url = "https://classified-app-server.herokuapp.com/api/post/add";
       var targetPath = this.pathForImage(this.lastImage);
-      var img = this.lastImage;
+      var fileName = this.lastImage;
       var options = {
         fileKey: "img",
-        img: img,
+        fileName: fileName,
         chunkedMode: false,
         httpMethod: 'POST',
         mimeType: "multipart/form-data",
         params: {
-          'img': img,
+          'fileName': fileName,
           'title': this.addPostObj.title,
           'description': this.addPostObj.description,
           'category': this.addPostObj.category,
@@ -151,15 +153,15 @@ export class AddPost implements OnInit {
         content: 'Uploading...',
       });
       this.loading.present();
-      fileTransfer.upload(targetPath, url, options).then(data => {
-        console.log('data', data)
-        this.loading.dismissAll()
-        this.presentToast('Image succesful uploaded.');
-      }, err => {
-        console.log('err', err)
-        this.loading.dismissAll()
-        this.presentToast('Error while uploading file.');
-      });
+      fileTransfer.upload(targetPath, url, options)
+        .then(data => {
+          this.loading.dismissAll()
+          this.app.showToast('Image succesful uploaded.');
+          this.navCtrl.setRoot(HomePage)
+        }, err => {
+          this.loading.dismissAll()
+          this.app.showToast('Error while uploading file.');
+        });
     }
   }
 }

@@ -26,30 +26,23 @@ export class Login {
   doLogin(user) {
     event.preventDefault();
     if (!user.valid) {
-      console.log("false")
+      this.app.showToast('Incomplete Input Field');
     } else {
       this.app.LoaderShow();
       this.auth.login(this.user)
         .subscribe(data => {
-            let response = data.json()
-            if (!response.success) {
-              this.app.LoaderHide();
-            }
-            else {
-              this.app.LoaderHide();
-              localStorage.setItem('loginData', JSON.stringify(response.data));
-              this.navCtrl.setRoot(HomePage)
-              this.user = { email: '', password: '' }
-            }
+          let response = data.json()
+          if (!response.success) {
+            this.app.LoaderHide();
+            this.app.showToast(response.error);
+          }
+          else {
+            this.app.LoaderHide();
+            localStorage.setItem('loginData', JSON.stringify(response.data));
+            this.navCtrl.setRoot(HomePage)
+            this.user = { email: '', password: '' }
+          }
         })
     }
-    //this.navCtrl.push(HomePage)
-    // this.navCtrl.push(HomePage,data) data mean params
-    //next page get param this.navParams.get()
   }
-  ionViewDidLoad() {
-    let confirmData = JSON.parse(localStorage.getItem('loginData'));
-    if (confirmData) return this.navCtrl.push(HomePage);
-  }
-
 }

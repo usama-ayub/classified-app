@@ -19,7 +19,7 @@
         <h2>Marty McFly</h2>
         <p>November 5, 1955</p>
       </ion-item>
-      <img [src]="appConfig + item.imgName">
+      <img [src]="appConfig + item.imgName" height="250px">
 
       <ion-card-content>
         <p><span>Title</span>:{{item.title}}</p>
@@ -51,11 +51,14 @@
 
     </ion-card>
   </div>
-  <div style="position: fixed;right: 20px;bottom: 10px;" *ngIf="exist ? '[navPush]="addPost"' : '[navPush]="login"'">
-    <button ion-button icon-only>
-           <ion-icon name="add-circle" md="md-add-circle"></ion-icon>
+
+  <div style="position: fixed;right: 20px;bottom: 10px;" (click)="addpostFunc()">
+
+    <button ion-fab color="primary">
+      <ion-icon name="add"></ion-icon>
       </button>
   </div>
+
   <div *ngIf="this.post.length == 0">
     <ion-card>
       <ion-card-header>

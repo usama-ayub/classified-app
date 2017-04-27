@@ -25,22 +25,18 @@
       </ion-item>
       <br/>
       <div>
-        <ion-content padding>
-          <img src="{{pathForImage(lastImage)}}" style="width: 50%;height: 50%;float: right;" [hidden]="lastImage === null">
-          <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
-        </ion-content>
-
-        <ion-buttons>
-          <button ion-button icon-left block (click)="captureImage()">
-        <ion-icon name="camera"></ion-icon>Select Image
-      </button>
-        </ion-buttons>
+          <img src="{{pathForImage(lastImage)}}" style="width: 100%;height: 50%;" [hidden]="lastImage === null">
       </div>
       <br/>
       <div>
-        <button ion-button secondary type="submit" block>Add Post</button>
+        <button ion-button secondary type="submit" block *ngIf="lastImage">Add Post</button>
       </div>
     </form>
+    <ion-buttons>
+      <button ion-button icon-left block (click)="captureImage()">
+        <ion-icon name="camera"></ion-icon>Select Image
+      </button>
+    </ion-buttons>
   </div>
 
 </ion-content>

@@ -25,7 +25,7 @@ export class Register {
 
   doRegister(user) {
     if (!user.valid) {
-      console.log("false")
+      this.app.showToast('Incomplete Input Field');
     } else {
       this.app.LoaderShow();
       this.auth.register(this.user)
@@ -33,6 +33,7 @@ export class Register {
           let response = data.json()
           if (!response.success) {
             this.app.LoaderHide();
+            this.app.showToast(response.error);
           } else {
             this.app.LoaderHide();
             this.navCtrl.setRoot(HomePage)
@@ -44,9 +45,6 @@ export class Register {
               password: ''
             }
           }
-
-
-
         }, error => {
           console.log("Error happened" + error)
         })
