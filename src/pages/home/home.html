@@ -17,14 +17,16 @@
         </ion-avatar>
         <ion-icon name="more" md="md-more" style="float: right"></ion-icon>
         <h2>Marty McFly</h2>
-        <p>November 5, 1955</p>
       </ion-item>
-      <img [src]="appConfig + item.imgName" height="250px">
+      <div style="position: relative">
+        <img [src]="appConfig + item.imgName" height="250px">
+        <p style="position: absolute; right:10px; font-size: 20px">{{item.category}}</p>
+      </div>
 
-      <ion-card-content>
-        <p><span>Title</span>:{{item.title}}</p>
-        <p><span>Description</span>:{{item.description}}</p>
-        <p><span>Category</span>:{{item.category}}</p>
+
+      <ion-card-content style="margin-top: 10px">
+        <p style="font-size: 18px; font-weight: 400"><span>Title</span>:&nbsp;{{item.title}}</p>
+        <p style="font-size: 18px; font-weight: 400"><span>Description</span>:&nbsp;{{item.description}}</p>
       </ion-card-content>
 
 

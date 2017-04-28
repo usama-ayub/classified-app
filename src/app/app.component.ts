@@ -1,3 +1,4 @@
+import { Auth } from './../providers/auth';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -19,11 +20,14 @@ export class MyApp {
 
   rootPage: any = HomePage;
   logout: any;
+  ID: any;
+
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public auth: Auth) {
     this.initializeApp();
-
+    this.ID = this.auth.user;
+    console.log('DD', this.auth.user);
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Login', component: Login },
@@ -46,10 +50,12 @@ export class MyApp {
     });
 
   }
+
   doLogout() {
     localStorage.clear();
-   this.nav.setRoot(HomePage)
+    this.nav.setRoot(HomePage)
   }
+
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
