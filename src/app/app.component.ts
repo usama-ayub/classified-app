@@ -1,4 +1,5 @@
 import { Auth } from './../providers/auth';
+import { App } from './../providers/app';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -21,14 +22,12 @@ export class MyApp {
   rootPage: any = HomePage;
   logout: any;
   ID: any;
-
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public auth: Auth) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public auth: Auth, public app: App) {
     this.initializeApp();
-    this.ID = this.auth.user;
-    console.log('DD', this.auth.user);
-    // used for an example of ngFor and navigation
+    this.ID = this.app.userIsLoginGet();
+    console.log(this.ID);
     this.pages = [
       { title: 'Login', component: Login },
       { title: 'Home', component: HomePage },
@@ -40,7 +39,7 @@ export class MyApp {
 
   }
 
-  initializeApp() {
+  initializeApp() {    
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -52,7 +51,7 @@ export class MyApp {
   }
 
   doLogout() {
-    localStorage.clear();
+    this.app.userIsLoginGet();
     this.nav.setRoot(HomePage)
   }
 

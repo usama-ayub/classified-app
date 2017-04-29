@@ -31,6 +31,19 @@ export class Auth {
   }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
   get uid() {
     return '58d3ea45279c3a27940f20c2';
   }

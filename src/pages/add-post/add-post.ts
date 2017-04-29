@@ -124,6 +124,7 @@ export class AddPost implements OnInit {
       return cordova.file.dataDirectory + img;
     }
   }
+  
   uploadImage(post) {
     if (!post.valid) {
       return this.app.showToast('Incomplete Input Field');

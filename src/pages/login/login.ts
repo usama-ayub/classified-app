@@ -31,7 +31,8 @@ export class Login {
       this.app.LoaderShow();
       this.auth.login(this.user)
         .subscribe(data => {
-          let response = data.json()
+          let response = data.json();
+          this.app.userIsLoginSet(response);
           if (!response.success) {
             this.app.LoaderHide();
             this.app.showToast(response.error);

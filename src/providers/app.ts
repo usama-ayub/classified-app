@@ -16,7 +16,7 @@ import 'rxjs/add/operator/map';
 export class App {
   private loading: any;
   toast: any;
-
+  userObj = { _id: '', name: '', firstName: '', email: '' };
   constructor(public http: Http, private loadingCtrl: LoadingController, private toastCtrl: ToastController, private auth: Auth) {
 
     console.log('Hello App Provider');
@@ -27,6 +27,15 @@ export class App {
     } else {
       return true;
     }
+  }
+  userIsLoginSet(user) {
+    this.userObj._id = user.data._id;
+    this.userObj.name = user.data.name;
+    this.userObj.firstName = user.data.firstName;
+    this.userObj.email = user.data.email;
+  }
+  userIsLoginGet() {
+    return this.userObj;
   }
   LoaderShow() {
     this.loading = this.loadingCtrl.create({

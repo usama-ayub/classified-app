@@ -11,7 +11,7 @@
       <ion-item menuClose (click)="openPage(pages[1])" style="margin-top: 10px">
         <ion-icon name="home" md="md-home"></ion-icon>&nbsp;{{pages[1].title}}
       </ion-item>
-      <ion-item menuClose (click)="openPage(pages[0])" style="margin-top: 10px" *ngIf="!ID">
+      <ion-item menuClose (click)="openPage(pages[0])" style="margin-top: 10px" *ngIf="!ID._id">
         &nbsp;
         <ion-icon name="log-in" md="md-log-in"></ion-icon>&nbsp;{{pages[0].title}}
       </ion-item>
@@ -19,10 +19,10 @@
       <button menuClose ion-item (click)="openPage(pages[3])">
           <ion-icon name="home" md="md-home"></ion-icon>{{pages[3].title}}
       </button>-->
-      <ion-item menuClose (click)="doLogout()" style="margin-top: 10px" *ngIf="ID">
+      <ion-item menuClose (click)="doLogout()" style="margin-top: 10px" *ngIf="ID._id">
         &nbsp;
         <ion-icon name="log-out" md="md-log-out"></ion-icon>&nbsp;Logout
-      </ion-item>
+      </ion-item>  
     </ion-list>
   </ion-content>
 
