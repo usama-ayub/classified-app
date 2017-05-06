@@ -79,10 +79,8 @@ export class AddPost implements OnInit {
       correctOrientation: true
     };
 
-    // Get the data of an image
     Camera.getPicture(options)
       .then((imagePath) => {
-        // Special handling for Android library
         if ((this.platform.is('android') || this.platform.is('ios') || this.platform.is('iphone')) && sourceType === Camera.PictureSourceType.PHOTOLIBRARY) {
           FilePath.resolveNativePath(imagePath)
             .then(filePath => {
@@ -92,7 +90,6 @@ export class AddPost implements OnInit {
             });
         }
         else {
-          console.log('else')
           var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
           var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
           this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
@@ -134,7 +131,7 @@ export class AddPost implements OnInit {
       var targetPath = this.pathForImage(this.lastImage);
       var fileName = this.lastImage;
       var options = {
-        fileKey: "img",
+        fileKey: "postImg",
         fileName: fileName,
         chunkedMode: false,
         httpMethod: 'POST',
