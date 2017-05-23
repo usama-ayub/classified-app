@@ -21,12 +21,16 @@ export class HomePage implements OnInit {
   addPost: any;
   login: any;
   appConfig: any;
+  features: any;
   constructor(public navCtrl: NavController, private auth: Auth, private todo: Todo, public popoverCtrl: PopoverController, private app: App) {
     this.addPost = AddPost
     this.login = Login
     this.appConfig = 'https://classified-app-server.herokuapp.com/'
   }
   ngOnInit() {
+    this.features = {
+      slidesPerView: 4,
+    }
     this.getPost();
     this.addPostObj = {
       posts: '',
@@ -47,10 +51,10 @@ export class HomePage implements OnInit {
 
   addpostFunc() {
     this.navCtrl.push(AddPost)
-    .catch((err) => {
-      this.navCtrl.setRoot(Login)
-     //if(err) return this.navCtrl.setRoot(Login)
-    })
+      .catch((err) => {
+        this.navCtrl.setRoot(Login)
+        //if(err) return this.navCtrl.setRoot(Login)
+      })
   }
 
   getPost() {
