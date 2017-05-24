@@ -5,6 +5,8 @@ import { App } from '../../providers/app';
 import { Auth } from '../../providers/auth';
 import { Todo } from '../../providers/todo';
 import { AddPost } from '../add-post/add-post';
+import { PostDetailPage } from '../post-detail/post-detail';
+import { AppConfig } from './../../app.config';
 import { Login } from '../login/login';
 
 @Component({
@@ -15,9 +17,7 @@ export class HomePage implements OnInit {
   post = [];
 
   addPostObj: any;
-  isLikeObj: any;
   todoDeleteObj: any;
-  exist: any;
   addPost: any;
   login: any;
   appConfig: any;
@@ -25,7 +25,7 @@ export class HomePage implements OnInit {
   constructor(public navCtrl: NavController, private auth: Auth, private todo: Todo, public popoverCtrl: PopoverController, private app: App) {
     this.addPost = AddPost
     this.login = Login
-    this.appConfig = 'https://classified-app-server.herokuapp.com/'
+    this.appConfig = AppConfig.API_URL
   }
   ngOnInit() {
     this.features = {
@@ -37,15 +37,11 @@ export class HomePage implements OnInit {
       createBy: '',
       isLike: false
     };
-    this.isLikeObj = {
-      post_id: '',
-      isLike: false
-    };
     this.todoDeleteObj = {
       user_id: '',
       todo_id: ''
     };
-    this.exist = this.auth.user;
+
   }
 
 
@@ -53,7 +49,13 @@ export class HomePage implements OnInit {
     this.navCtrl.push(AddPost)
       .catch((err) => {
         this.navCtrl.setRoot(Login)
-        //if(err) return this.navCtrl.setRoot(Login)
+      })
+  }
+
+  postDetailFunc(detail) {
+    this.navCtrl.push(PostDetailPage, detail)
+      .catch((err) => {
+        this.navCtrl.setRoot(Login)
       })
   }
 
@@ -77,24 +79,7 @@ export class HomePage implements OnInit {
       })
   }
 
-  isLike(index) {
-    this.app.LoaderShow();
-    this.isLikeObj = {
-      post_id: index._id,
-      isLike: !index.isLike
-    }
-    this.todo.addPostLike(this.isLikeObj)
-      .then(data => {
-        if (data.status == 200) {
-          this.post.map(item => {
-            if (item._id == index._id) {
-              item.isLike = !index.isLike;
-            }
-          })
-        }
-        this.app.LoaderHide();
-      })
-  }
+
 
 
   deleteTodo(index) {

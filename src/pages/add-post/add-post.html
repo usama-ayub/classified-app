@@ -11,7 +11,7 @@
   <div>
     <form #form="ngForm" (ngSubmit)="uploadImage(form)" novalidate>
       <ion-item>
-        <ion-label floating>Name</ion-label>
+        <ion-label floating>Title</ion-label>
         <ion-input type="text" required [(ngModel)]="addPostObj.title" name="title" required></ion-input>
       </ion-item>
       <ion-item>
@@ -23,9 +23,13 @@
         <ion-label floating>Category</ion-label>
         <ion-input type="text" required [(ngModel)]="addPostObj.category" name="category" required></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label floating>Price</ion-label>
+        <ion-input type="number" required [(ngModel)]="addPostObj.price" name="price" required></ion-input>
+      </ion-item>
       <br/>
       <div>
-          <img src="{{pathForImage(lastImage)}}" style="width: 100%;height: 50%;" [hidden]="lastImage === null">
+        <img src="{{pathForImage(lastImage)}}" style="width: 100%;height: 50%;" [hidden]="lastImage === null">
       </div>
       <br/>
       <div>

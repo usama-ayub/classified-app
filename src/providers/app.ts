@@ -4,21 +4,12 @@ import { Http } from '@angular/http';
 import { Auth } from '../providers/auth';
 import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the App provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
-
-
 @Injectable()
 export class App {
   private loading: any;
   toast: any;
   userObj = { _id: '', name: '', firstName: '', email: '' };
   constructor(public http: Http, private loadingCtrl: LoadingController, private toastCtrl: ToastController, private auth: Auth) {
-
     console.log('Hello App Provider');
   }
   userCheck() {
@@ -30,7 +21,6 @@ export class App {
   }
   userIsLoginSet(user) {
     this.userObj._id = user.data._id;
-    this.userObj.name = user.data.name;
     this.userObj.firstName = user.data.firstName;
     this.userObj.email = user.data.email;
   }

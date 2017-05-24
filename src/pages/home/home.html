@@ -72,7 +72,7 @@
   <div style="margin-top: 25px;">
     <ion-slides>
       <ion-slide *ngFor="let item of post">
-        <ion-card style="background-color: #e0e0e0;">
+        <ion-card style="background-color: #e0e0e0;" (click)="postDetailFunc(item)">
           <div style="position: relative;">
             <img src="assets/advance-card-bttf.png" *ngIf="item.imgName">
             <img [src]="appConfig + item.imgName" height="250px" *ngIf="!item.imgName">
@@ -93,7 +93,7 @@
           <ion-card-header>
           </ion-card-header>
           <ion-card-content>
-            <ion-icon name="ios-add-circle-outline"></ion-icon>
+            <ion-icon name="md-add-circle" style="font-size: 45px" (click)="addpostFunc()"></ion-icon>
           </ion-card-content>
         </ion-card>
       </ion-slide>

@@ -9,6 +9,7 @@ import { ListPage } from '../pages/list/list';
 import { Login } from '../pages/login/login';
 import { Register } from '../pages/register/register';
 import { AddPost } from '../pages/add-post/add-post';
+import { PostDetailPage } from '../pages/post-detail/post-detail';
 
 
 import { App } from '../providers/app';
@@ -25,7 +26,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage,
     Login,
     Register,
-    AddPost
+    AddPost,
+    PostDetailPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage,
     Register,
     Login,
-    AddPost
+    AddPost,
+    PostDetailPage
   ],
   providers: [
     StatusBar,

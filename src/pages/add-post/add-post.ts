@@ -31,6 +31,8 @@ export class AddPost implements OnInit {
       category: '',
       isLike: false,
       createBy: this.auth.uid,
+      price: 0,
+      feature: false,
     };
   }
   ionViewCanEnter(): boolean {
@@ -121,7 +123,7 @@ export class AddPost implements OnInit {
       return cordova.file.dataDirectory + img;
     }
   }
-  
+
   uploadImage(post) {
     if (!post.valid) {
       return this.app.showToast('Incomplete Input Field');
@@ -141,8 +143,10 @@ export class AddPost implements OnInit {
           'title': this.addPostObj.title,
           'description': this.addPostObj.description,
           'category': this.addPostObj.category,
-          'isLike': false,
-          'createBy': this.auth.uid
+          'isLike': this.addPostObj.isLike,
+          'createBy': this.auth.uid,
+          'price': this.addPostObj.price,
+          'feature': this.addPostObj.feature
         }
       };
 
