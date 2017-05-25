@@ -28,7 +28,6 @@ export class MyApp {
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public auth: Auth, public app: App) {
     this.initializeApp();
     this.ID = this.app.userIsLoginGet();
-    console.log(this.ID);
     this.pages = [
       { title: 'Login', component: Login },
       { title: 'Home', component: HomePage },

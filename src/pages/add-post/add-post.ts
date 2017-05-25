@@ -30,7 +30,7 @@ export class AddPost implements OnInit {
       img: '',
       category: '',
       isLike: false,
-      createBy: this.auth.uid,
+      createBy: this.auth.user._id,
       price: 0,
       feature: false,
     };
@@ -144,7 +144,7 @@ export class AddPost implements OnInit {
           'description': this.addPostObj.description,
           'category': this.addPostObj.category,
           'isLike': this.addPostObj.isLike,
-          'createBy': this.auth.uid,
+          'createBy': this.addPostObj.createBy,
           'price': this.addPostObj.price,
           'feature': this.addPostObj.feature
         }

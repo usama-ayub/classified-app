@@ -35,7 +35,10 @@ export class App {
   }
 
   LoaderHide() {
-    if (this.loading) this.loading.dismissAll()
+    if (this.loading) {
+      this.loading.dismissAll();
+      this.loading = null;
+    }
   }
 
   showToast(text) {

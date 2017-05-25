@@ -15,33 +15,19 @@ import { Login } from '../login/login';
 })
 export class HomePage implements OnInit {
   post = [];
-
-  addPostObj: any;
+  userPost = [];
   todoDeleteObj: any;
   addPost: any;
   login: any;
   appConfig: any;
-  features: any;
   constructor(public navCtrl: NavController, private auth: Auth, private todo: Todo, public popoverCtrl: PopoverController, private app: App) {
     this.addPost = AddPost
     this.login = Login
     this.appConfig = AppConfig.API_URL
   }
   ngOnInit() {
-    this.features = {
-      slidesPerView: 4,
-    }
+    this.auth.user ? this.getPostByUserID() : false;
     this.getPost();
-    this.addPostObj = {
-      posts: '',
-      createBy: '',
-      isLike: false
-    };
-    this.todoDeleteObj = {
-      user_id: '',
-      todo_id: ''
-    };
-
   }
 
 
@@ -54,9 +40,6 @@ export class HomePage implements OnInit {
 
   postDetailFunc(detail) {
     this.navCtrl.push(PostDetailPage, detail)
-      .catch((err) => {
-        this.navCtrl.setRoot(Login)
-      })
   }
 
   getPost() {
@@ -72,7 +55,6 @@ export class HomePage implements OnInit {
             this.post = response.data;
             this.app.LoaderHide();
           } else {
-            console.log(this.post.length)
             this.app.LoaderHide();
           }
         }
@@ -80,19 +62,24 @@ export class HomePage implements OnInit {
   }
 
 
-
-
-  deleteTodo(index) {
-    this.post.splice(index, 1);
-    this.todoDeleteObj = {
-      user_id: index.CreateBy,
-      todo_id: index._id
-    }
-    this.todo.deleteTodo(this.todoDeleteObj)
-      .then(data => {
-        if (data.status == 200) {
-          //this.app.showToast()
+  getPostByUserID() {
+    //this.app.LoaderShow();
+    this.todo.getPostByUserID()
+      .subscribe(data => {
+        let response = data
+        if (!response.success) {
+          //this.app.LoaderHide();
+        }
+        else {
+          if (response.data.length > 0) {
+            this.userPost = response.data;
+            console.log(this.userPost);
+            //this.app.LoaderHide();
+          } else {
+           // this.app.LoaderHide();
+          }
         }
       })
   }
+
 }

@@ -50,7 +50,7 @@
   <div style="margin-top: 25px;">
     <ion-slides>
       <ion-slide *ngFor="let item of post">
-        <ion-card style="background-color: #e0e0e0;" *ngIf="item.feature">
+        <ion-card style="background-color: #e0e0e0;" (click)="postDetailFunc(item)">
           <div style="position: relative;">
             <ion-icon name="bookmark" style="position: absolute;left: 1px;font-size: 30px;color: white;top: -4px"></ion-icon>
             <img src="assets/advance-card-bttf.png" *ngIf="item.imgName">
@@ -71,7 +71,7 @@
 
   <div style="margin-top: 25px;">
     <ion-slides>
-      <ion-slide *ngFor="let item of post">
+      <ion-slide *ngFor="let item of userPost">
         <ion-card style="background-color: #e0e0e0;" (click)="postDetailFunc(item)">
           <div style="position: relative;">
             <img src="assets/advance-card-bttf.png" *ngIf="item.imgName">
@@ -87,7 +87,6 @@
           </ion-row>
         </ion-card>
       </ion-slide>
-
       <ion-slide>
         <ion-card>
           <ion-card-header>
