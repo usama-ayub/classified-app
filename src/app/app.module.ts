@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -10,6 +11,7 @@ import { Login } from '../pages/login/login';
 import { Register } from '../pages/register/register';
 import { AddPost } from '../pages/add-post/add-post';
 import { PostDetailPage } from '../pages/post-detail/post-detail';
+import { PostCategoryPage } from './../pages/post-category/post-category';
 
 
 import { App } from '../providers/app';
@@ -27,7 +29,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Login,
     Register,
     AddPost,
-    PostDetailPage
+    PostDetailPage,
+    PostCategoryPage
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Register,
     Login,
     AddPost,
-    PostDetailPage
+    PostDetailPage,
+    PostCategoryPage
   ],
   providers: [
     StatusBar,

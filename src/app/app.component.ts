@@ -11,7 +11,7 @@ import { Login } from '../pages/login/login';
 import { Register } from '../pages/register/register';
 import { AddPost } from '../pages/add-post/add-post';
 import { PostDetailPage } from '../pages/post-detail/post-detail';
-
+import { PostCategoryPage } from '../pages/post-category/post-category';
 
 
 @Component({
@@ -36,6 +36,7 @@ export class MyApp {
       { title: 'List', component: ListPage },
       { title: 'Add Post', component: AddPost },
       { title: 'Post Detail', component: PostDetailPage },
+      { title: 'Post Category', component: PostCategoryPage },
     ];
 
   }

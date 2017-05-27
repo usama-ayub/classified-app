@@ -1,0 +1,44 @@
+<!--
+  Generated template for the PostCategoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{category}} Category</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div style="margin-top: 25px;" *ngFor="let item of postCategory">
+    <ion-card style="background-color: #e0e0e0;" (click)="postDetailFunc(item)">
+      <div style="position: relative;">
+        <img src="assets/advance-card-bttf.png" *ngIf="item.imgName">
+        <img [src]="appConfig + item.imgName" height="250px" *ngIf="!item.imgName">
+      </div>
+      <ion-row style="border-top: #0088ff 2px solid; background-color: white">
+        <ion-col style="text-align: left">
+          <p style="font-size: 18px; font-weight: 400"><span></span>{{item.title}}</p>
+        </ion-col>
+        <ion-col style="text-align: right">
+          <p style="font-size: 18px; font-weight: 400"><span>Price</span>:&nbsp;{{item.price}}.Rs</p>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+   <div *ngIf="this.postCategory.length == 0">
+    <ion-card>
+      <ion-card-header>
+        Note
+      </ion-card-header>
+
+      <ion-card-content>
+        No {{category}} Post Availabe
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

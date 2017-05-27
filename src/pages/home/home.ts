@@ -8,6 +8,7 @@ import { AddPost } from '../add-post/add-post';
 import { PostDetailPage } from '../post-detail/post-detail';
 import { AppConfig } from './../../app.config';
 import { Login } from '../login/login';
+import { PostCategoryPage } from '../post-category/post-category';
 
 @Component({
   selector: 'page-home',
@@ -20,14 +21,18 @@ export class HomePage implements OnInit {
   addPost: any;
   login: any;
   appConfig: any;
-  constructor(public navCtrl: NavController, private auth: Auth, private todo: Todo, public popoverCtrl: PopoverController, private app: App) {
+  constructor(public navCtrl: NavController,
+    private auth: Auth, private todo: Todo,
+    public popoverCtrl: PopoverController,
+    private app: App
+  ) {
     this.addPost = AddPost
     this.login = Login
     this.appConfig = AppConfig.API_URL
   }
   ngOnInit() {
     this.auth.user ? this.getPostByUserID() : false;
-    this.getPost();
+    this.getPostByFeature();
   }
 
 
@@ -42,9 +47,13 @@ export class HomePage implements OnInit {
     this.navCtrl.push(PostDetailPage, detail)
   }
 
-  getPost() {
+  postCategoryFunc(data) {
+    this.navCtrl.push(PostCategoryPage, data)
+  }
+
+  getPostByFeature() {
     this.app.LoaderShow();
-    this.todo.getPost()
+    this.todo.getPostByFeature()
       .subscribe(data => {
         let response = data
         if (!response.success) {
@@ -76,7 +85,7 @@ export class HomePage implements OnInit {
             console.log(this.userPost);
             //this.app.LoaderHide();
           } else {
-           // this.app.LoaderHide();
+            // this.app.LoaderHide();
           }
         }
       })

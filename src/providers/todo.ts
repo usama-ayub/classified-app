@@ -25,9 +25,19 @@ export class Todo {
     return this.http.get(url)
       .map(response => response.json())
       .filter((x: any) => {
-        const d = x.data.map(data=>data)
+        const d = x.data.map(data => data)
         return d.feature !== true;
       });
+  }
+  getPostByFeature(): Observable<any> {
+    let url = `${AppConfig.API_URL}/post/featureCategory/true`;
+    return this.http.get(url)
+      .map(response => response.json());
+  }
+  getPostByCategory(category: any): Observable<any> {
+    let url = `${AppConfig.API_URL}/post/category/${category}`;
+    return this.http.get(url)
+      .map(response => response.json());
   }
   getPostByUserID(): Observable<any> {
     let url = `${AppConfig.API_URL}/post/user/${this.auth.user._id}`;
